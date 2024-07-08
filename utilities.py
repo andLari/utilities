@@ -2,6 +2,7 @@ import random
 import string
 from time import sleep
 import requests
+import subprocess
 
 
 def menu():
@@ -9,19 +10,21 @@ def menu():
         print()
         print("1. Get my IP")
         print("2. Generate Password")
-        print()
+        print("3. Generate .exe build")
         print("Choose something by typing it's number")
         print()
         try:
             menu_choose = int(input())
         except ValueError:
-            print("Please, enter a number. Not a string")
+            print("Please, enter a number.")
             continue
         
         if menu_choose == 1:
             getip()
         elif menu_choose == 2:
             pass_gen()
+        elif menu_choose == 3:
+            exe_build()
         else:
             print("Incorrect Number. Please, enter a valid number")
 
@@ -72,6 +75,19 @@ def pass_gen():
         print("No character sets selected, try again.")
     
     back_menu_choose()
+
+
+def exe_build():
+    print("This function will create a .exe build that can be routed in this program")
+    
+    script = "notify_launch.py"
+    
+    subprocess.run(['pyinstaller', '--onefile', script], check=True)
+    
+    print(f".exe build created for {script}")
+
+
+
 
 def countdown_back_menu(t):
     while t >= 0:
